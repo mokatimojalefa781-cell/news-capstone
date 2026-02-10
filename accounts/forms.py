@@ -1,14 +1,25 @@
+"""
+Forms for user registration and authentication.
+
+This module contains Django forms related to the CustomUser model.
+"""
+
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from .models import CustomUser
 
-class RegistrationForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = get_user_model()
-        fields = ("username", "email", "role")
 
-    def clean_email(self):
-        email = self.cleaned_data.get("email", "").strip().lower()
-        if email and get_user_model().objects.filter(email=email).exists():
-            raise forms.ValidationError("A user with this email already exists.")
-        return email
+class CustomUserCreationForm(UserCreationForm):
+    """
+    Form used to create new users.
+
+    Extends Django's UserCreationForm to work with CustomUser.
+    """
+
+    class Meta:
+        """
+        Meta configuration for the form.
+        """
+        model = CustomUser
+        fields = ("username", "email")
+
