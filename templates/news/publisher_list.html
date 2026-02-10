@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Publishers</h2>
+<ul>
+{% for publisher in publishers %}
+    <li><strong>{{ publisher.name }}</strong><br>
+        Editors: {% for editor in publisher.editors.all %}{{ editor.username }}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}
+        <br>
+        Journalists: {% for journalist in publisher.journalists.all %}{{ journalist.username }}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}
+    </li>
+{% empty %}
+    <li>No publishers found.</li>
+{% endfor %}
+</ul>
+{% endblock %}

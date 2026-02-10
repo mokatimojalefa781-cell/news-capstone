@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pending Articles</title>
+</head>
+<body>
+    <h1>Pending Articles for Approval</h1>
+
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <strong>{{ article.title }}</strong>
+                    <br>
+                    <!-- Use a POST form to approve the article -->
+                    <form action="{% url 'approve_article' article.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Approve</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles awaiting approval.</p>
+    {% endif %}
+</body>
+</html>
+

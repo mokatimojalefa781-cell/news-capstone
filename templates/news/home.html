@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Approved Articles</h2>
+<ul>
+    {% for article in articles %}
+        <li><strong>{{ article.title }}</strong> by {{ article.journalist.username }} {% if article.publisher %}({{ article.publisher.name }}){% endif %}</li>
+    {% empty %}
+        <li>No approved articles yet.</li>
+    {% endfor %}
+</ul>
+<h2>Approved Newsletters</h2>
+<ul>
+    {% for newsletter in newsletters %}
+        <li><strong>{{ newsletter.title }}</strong> by {{ newsletter.journalist.username }} {% if newsletter.publisher %}({{ newsletter.publisher.name }}){% endif %}</li>
+    {% empty %}
+        <li>No approved newsletters yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
