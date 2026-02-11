@@ -1,28 +1,24 @@
+"""
+Models for the accounts app.
+
+This module defines custom user-related models used in the News Application.
+"""
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
 class CustomUser(AbstractUser):
-    class Roles(models.TextChoices):
-        READER = "reader", "Reader"
-        EDITOR = "editor", "Editor"
-        JOURNALIST = "journalist", "Journalist"
+    """
+    Custom user model extending Django's AbstractUser.
 
-    role = models.CharField(max_length=20, choices=Roles.choices)
-
-    #  ADDED FIELD
-    subscribed_publishers = models.ManyToManyField(
-        "news.Publisher",
-        blank=True,
-        related_name="subscribers"
-    )
-
-    def save(self, *args, **kwargs):
-        if self.role == self.Roles.EDITOR:
-            self.is_staff = True
-        elif self.role == self.Roles.READER:
-            self.is_staff = False
-        super().save(*args, **kwargs)
+    This model allows future extension of user-related fields
+    without changing Django's default authentication behavior.
+    """
 
     def __str__(self):
+        """
+        Return the string representation of the user.
+        """
         return self.username
+
